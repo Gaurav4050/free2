@@ -5,8 +5,6 @@ import LoginForm from "./components/LoginForm/Index";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-
-
   return (
     <BrowserRouter>
       <Routes>

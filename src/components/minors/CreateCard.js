@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CreateCard(content, deletenote) {
+function CreateCard(notes, setNotes, content, deletenote) {
   if (content.note !== "NULL") {
     return (
       <Card
@@ -9,12 +9,15 @@ function CreateCard(content, deletenote) {
         key={content.id}
         title={content.title}
         content={content.note}
+        notes={notes}
+        setNotes={setNotes}
       />
     );
   }
 }
 
 function Card(props) {
+  console.log("Card props", props);
   const [editMode, setEditMode] = useState(false);
   const [editContent, setEditContent] = useState(props.content);
 
@@ -24,14 +27,28 @@ function Card(props) {
 
   function saveEdit() {
     console.log("Save edit clicked", props.id, editContent);
-    // Add your logic to save the edited content, e.g., send it to a localStorage
-    setEditMode(props.content);
+
+    console.log("props.notes", props.notes);
+    console.log("props.id", props.id);
+
+    const updatedNotes = props.notes.map((note) => {
+      if (note.id === props.id) {
+        return { ...note, note: editContent };
+      }
+      return note;
+    });
+
+    console.log("updatedNotes", updatedNotes);
+
+    props.setNotes(updatedNotes);
+
+    // Add your logic to save the edited content, e.g., send it to localStorage
+    setEditMode(false);
   }
 
   function cancelEdit() {
     console.log("Cancel edit clicked", props.id, props.content);
     setEditMode(false);
-    
   }
 
   function taskDelete() {
@@ -56,7 +73,9 @@ function Card(props) {
           <div className="card-action blue-text">
             {editMode ? (
               <div>
-                <button value={editContent} onClick={saveEdit}>Save</button>
+                <button value={editContent} onClick={saveEdit}>
+                  Save
+                </button>
                 <button onClick={cancelEdit}>Cancel</button>
               </div>
             ) : (
