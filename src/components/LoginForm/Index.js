@@ -42,6 +42,12 @@ export default function SignIn() {
 
     const user = existingUsers.find((user) => user.email === enteredEmail);
     localStorage.setItem("LoginStatus", false);
+
+    if (!user) {
+      alert("User Not Exist! please Register");
+      navigate("/register");
+    }
+
     if (user && user.password === enteredPassword) {
       localStorage.setItem("LoginStatus", true);
       localStorage.setItem("userEmail", enteredEmail);
@@ -49,7 +55,7 @@ export default function SignIn() {
     } else {
       alert("Invalid email or password. Please try again.");
       localStorage.setItem("LoginStatus", false);
-      navigate("/register");
+      // navigate("/register");
     }
   };
 

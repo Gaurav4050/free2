@@ -20,7 +20,7 @@ function Heading() {
     navigate("/login");
 
     // You might also want to update the UI or perform other actions
-    alert(`User with email ${userEmail} LogOut successfully!`);
+    // alert(`User with email ${userEmail} LogOut successfully!`);
   };
 
   return (
