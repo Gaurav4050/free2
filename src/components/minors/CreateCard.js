@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 
-function CreateCard(notes, setNotes, content, deletenote) {
+function CreateCard({ notes, setNotes, content, deletenote }) {
   if (content.note !== "NULL") {
     return (
       <Card
