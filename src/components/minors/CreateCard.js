@@ -1,3 +1,4 @@
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 
 function CreateCard(notes, setNotes, content, deletenote) {
@@ -9,6 +10,7 @@ function CreateCard(notes, setNotes, content, deletenote) {
         key={content.id}
         title={content.title}
         content={content.note}
+        categoryValue={content.category}
         notes={notes}
         setNotes={setNotes}
       />
@@ -16,10 +18,78 @@ function CreateCard(notes, setNotes, content, deletenote) {
   }
 }
 
+const categories = [
+  {
+    id: 1,
+    name: "Arts",
+  },
+  {
+    id: 2,
+    name: "Business",
+  },
+  {
+    id: 3,
+    name: "Computers",
+  },
+  {
+    id: 4,
+    name: "Games",
+  },
+  {
+    id: 5,
+    name: "Health",
+  },
+  {
+    id: 6,
+    name: "Home",
+  },
+  {
+    id: 7,
+    name: "Kids and Teens",
+  },
+  {
+    id: 8,
+    name: "News",
+  },
+  {
+    id: 9,
+    name: "Recreation",
+  },
+  {
+    id: 10,
+    name: "Reference",
+  },
+  {
+    id: 11,
+    name: "Regional",
+  },
+  {
+    id: 12,
+    name: "Science",
+  },
+  {
+    id: 13,
+    name: "Shopping",
+  },
+  {
+    id: 14,
+    name: "Society",
+  },
+  {
+    id: 15,
+    name: "Sports",
+  },
+  {
+    id: 16,
+    name: "World",
+  },
+];
+
 function Card(props) {
   console.log("Card props", props);
   const [editMode, setEditMode] = useState(false);
   const [editContent, setEditContent] = useState(props.content);
+  const [category, setCategory] = useState("");
 
   function toggleEditMode() {
     setEditMode(!editMode);
@@ -54,6 +124,19 @@ function Card(props) {
   function taskDelete() {
     props.del(props.id);
   }
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+
+    const updatedData = props.notes.map((note) => {
+      if (note.id === props.id) {
+        return { ...note, category: event.target.value };
+      }
+      return note;
+    });
+    console.log("upd", updatedData);
+    props.setNotes(updatedData);
+  };
 
   return (
     <div>
@@ -107,6 +190,36 @@ function Card(props) {
                 </i>
               </a>
             )}
+          </div>
+          <hr />
+          <div style={{ marginTop: "-5px" }}>
+            <FormControl
+              variant="standard"
+              sx={{ m: 1, minWidth: 120, width: "90%" }}
+            >
+              <InputLabel id="demo-simple-select-standard-label">
+                Select Category
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                value={props.categoryValue || category}
+                onChange={handleChange}
+                label="Select Category"
+                fullWidth
+              >
+                {/* <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem> */}
+                {categories.map((item) => (
+                  <MenuItem key={item.id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
         </div>
       </div>

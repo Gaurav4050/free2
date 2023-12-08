@@ -14,28 +14,34 @@ function Heading() {
               <span className="hero-text">Keep</span>
             </a>
 
-            
-
             <ul className="white blue-text text-darken-2 right ">
+              <li>
+                <a className="blue-text text-darken-2" href="/catergory">
+                  Categories
+                </a>
+              </li>
               <li>
                 <a className="blue-text text-darken-2" href="/">
                   Refresh
                 </a>
               </li>
               <li>
-                <a href="https://github.com/Vinodnkr/keepClone" target='blank' className="blue-text text-darken-2">
+                <a
+                  href="https://github.com/Vinodnkr/keepClone"
+                  target="blank"
+                  className="blue-text text-darken-2"
+                >
                   Code
                 </a>
               </li>
-              <li><a className="blue-text text-darken-2"  href='/home'>
-            Logout</a></li>
+              <li>
+                <a className="blue-text text-darken-2" href="/home">
+                  Logout
+                </a>
+              </li>
             </ul>
-
-            
-            
           </div>
         </nav>
-        
       </div>
     </div>
   );

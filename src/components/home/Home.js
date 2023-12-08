@@ -4,15 +4,10 @@ import NewNote from "../NewNote";
 import Header from "../Header";
 // import CreateCard from "./components/minors/CreateCard";
 import CreateCard from "../minors/CreateCard";
-import ls from "local-storage";
 import Footer from "../Footer";
+import ls from "local-storage";
 
-const Home = () => {
-  const nullNote = { id: 9999999, title: "NULL", note: "NULL" };
-  const storedNotes = JSON.parse(ls.get("notes")) || [nullNote];
-
-  const [notes, setNotes] = useState(storedNotes);
-
+const Home = ({ notes, setNotes }) => {
   useEffect(() => {
     ls("notes", JSON.stringify(notes.filter((note) => note.id !== 9999999)));
   }, [notes]);
@@ -21,7 +16,7 @@ const Home = () => {
     const newId = Math.round(Math.random() * 100);
     setNotes((prevNotes) => [
       ...prevNotes,
-      { id: newId, title, note: content },
+      { id: newId, title, note: content, category: "" },
     ]);
   };
 
