@@ -14,10 +14,12 @@ const Home = () => {
 
   useEffect(() => {
     const data = localStorage.getItem("LoginStatus");
-    if (!data) {
+    console.log("Data", data);
+    if (data == "false") {
+      console.log("gaurav");
       navigate("/login");
     }
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     ls.set(

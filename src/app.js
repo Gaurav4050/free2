@@ -6,6 +6,7 @@ import Category from "./components/category/Category.js";
 import CategoryItem from "./components/category/CategoryItem.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ls from "local-storage";
+import "./style.css";
 
 function App() {
   const nullNote = { id: 9999999, title: "NULL", note: "NULL" };
@@ -19,7 +20,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/" element={<Home notes={notes} setNotes={setNotes} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/catergory" element={<Category />} />
+        <Route path="/category" element={<Category />} />
         <Route
           path="/category/:id"
           element={<CategoryItem notes={notes} setNotes={setNotes} />}

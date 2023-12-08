@@ -21,7 +21,7 @@ export default function Register() {
 
   React.useEffect(() => {
     const data = localStorage.getItem("LoginStatus");
-    if (data) {
+    if (data == "true") {
       navigate("/");
     }
   });
@@ -63,6 +63,7 @@ export default function Register() {
 
     // Store the updated array in local storage
     localStorage.setItem("userData", JSON.stringify(updatedUsers));
+    navigate("/login");
   };
 
   return (
