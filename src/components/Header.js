@@ -1,6 +1,26 @@
+import { Button } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Heading() {
+
+  const navigate = useNavigate()
+  const HnadleClick = () => {
+
+    const userEmail = localStorage.getItem('userEmail')
+    const existingUsers = JSON.parse(localStorage.getItem('userData')) || [];
+
+    // Filter out the user with the specified email
+    const updatedUsers = existingUsers.filter(user => user.email !== userEmail);
+
+    // Update local storage with the filtered user data
+    localStorage.setItem('userData', JSON.stringify(updatedUsers));
+    localStorage.removeItem('userEmail')
+    localStorage.setItem('LoginStatus', false)
+    navigate('/login')
+    // You might also want to update the UI or perform other actions
+    alert(`User with email ${userEmail} LogOut successfully!`);
+  }
   return (
     <div>
       <div className="nav-wrapper white blue-text text-darken-2">
@@ -14,7 +34,7 @@ function Heading() {
               <span className="hero-text">Keep</span>
             </a>
 
-            
+
 
             <ul className="white blue-text text-darken-2 right ">
               <li>
@@ -27,15 +47,14 @@ function Heading() {
                   Code
                 </a>
               </li>
-              <li><a className="blue-text text-darken-2"  href='/home'>
-            Logout</a></li>
+              <li><Button onClick={HnadleClick}>LogOut</Button></li>
             </ul>
 
-            
-            
+
+
           </div>
         </nav>
-        
+
       </div>
     </div>
   );
