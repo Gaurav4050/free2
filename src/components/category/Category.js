@@ -96,7 +96,7 @@ const Category = () => {
                   backgroundColor: getRandomColor(),
                   padding: "20px",
                   borderRadius: "8px",
-                  color: "white", // text color
+                  color: "white", 
                   cursor: "pointer",
                 }}
                 onClick={() => handleClick(item.id)}

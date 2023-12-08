@@ -1,10 +1,9 @@
-// NewNote.js
 
 import React, { useState } from "react";
 
 function NewNote({ add }) {
   const [title, setTitle] = useState("");
-  const [titleError, setTitleError] = useState(false); // [1
+  const [titleError, setTitleError] = useState(false); 
   const [content, setContent] = useState("");
 
   const handleAddNote = () => {

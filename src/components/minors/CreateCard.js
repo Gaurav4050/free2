@@ -112,7 +112,6 @@ function Card(props) {
 
     props.setNotes(updatedNotes);
 
-    // Add your logic to save the edited content, e.g., send it to localStorage
     setEditMode(false);
   }
 

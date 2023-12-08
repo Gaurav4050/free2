@@ -79,7 +79,6 @@ const CategoryItem = ({ notes }) => {
   const { id } = useParams();
 
   const filteredNotes = notes.filter((note) => {
-    // Assuming the 'category' property in each note matches the 'name' in categories
     return (
       note.category === categories.find((cat) => cat.id === parseInt(id))?.name
     );

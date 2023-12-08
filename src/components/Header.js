@@ -8,19 +8,15 @@ function Heading() {
     const userEmail = localStorage.getItem("userEmail");
     const existingUsers = JSON.parse(localStorage.getItem("userData")) || [];
 
-    // Filter out the user with the specified email
     const updatedUsers = existingUsers.filter(
       (user) => user.email !== userEmail
     );
 
-    // Update local storage with the filtered user data
     localStorage.setItem("userData", JSON.stringify(updatedUsers));
     localStorage.removeItem("userEmail");
     localStorage.setItem("LoginStatus", false);
     navigate("/login");
 
-    // You might also want to update the UI or perform other actions
-    // alert(`User with email ${userEmail} LogOut successfully!`);
   };
 
   return (
