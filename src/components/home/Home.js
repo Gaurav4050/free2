@@ -1,22 +1,36 @@
 import React, { useState, useEffect } from "react";
-// import NewNote from "./components/NewNote";
+import { useNavigate } from "react-router-dom";
+import ls from "local-storage";
 import NewNote from "../NewNote";
 import Header from "../Header";
-// import CreateCard from "./components/minors/CreateCard";
 import CreateCard from "../minors/CreateCard";
 import Footer from "../Footer";
-import ls from "local-storage";
 
-const Home = ({ notes, setNotes }) => {
+const Home = () => {
+  const nullNote = { id: 9999999, title: "NULL", note: "NULL" };
+  const storedNotes = JSON.parse(ls.get("notes")) || [nullNote];
+  const navigate = useNavigate();
+  const [notes, setNotes] = useState(storedNotes);
+
   useEffect(() => {
-    ls("notes", JSON.stringify(notes.filter((note) => note.id !== 9999999)));
+    const data = localStorage.getItem("LoginStatus");
+    if (!data) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    ls.set(
+      "notes",
+      JSON.stringify(notes.filter((note) => note.id !== 9999999))
+    );
   }, [notes]);
 
   const addNote = (title, content) => {
     const newId = Math.round(Math.random() * 100);
     setNotes((prevNotes) => [
       ...prevNotes,
-      { id: newId, title, note: content, category: "" },
+      { id: newId, title, note: content },
     ]);
   };
 
@@ -31,15 +45,21 @@ const Home = ({ notes, setNotes }) => {
       )
     );
   };
+
   return (
     <>
       <Header />
-
       <NewNote add={addNote} />
       <div className="row">
-        {notes.map((note) =>
-          CreateCard(notes, setNotes, note, deleteNote, saveNote)
-        )}
+        {notes.map((note) => (
+          <CreateCard
+            key={note.id}
+            notes={notes}
+            setNotes={setNotes}
+            content={note}
+            deletenote={deleteNote}
+          />
+        ))}
       </div>
       <Footer />
     </>

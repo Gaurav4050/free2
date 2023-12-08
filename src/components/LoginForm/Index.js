@@ -12,25 +12,26 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
+
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
+  const navigate = useNavigate()
+
+  React.useEffect(() => {
+    const data = localStorage.getItem('LoginStatus')
+    if (data) {
+      navigate('/')
+    }
+    console.log('dsdsdsds', data)
+  })
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,6 +39,22 @@ export default function SignIn() {
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    const enteredEmail = data.get('email');
+    const enteredPassword = data.get('password');
+    const existingUsers = JSON.parse(localStorage.getItem('userData')) || [];
+
+    const user = existingUsers.find(user => user.email === enteredEmail);
+    localStorage.setItem('LoginStatus', false)
+    if (user && user.password === enteredPassword) {
+      localStorage.setItem('LoginStatus', true)
+      localStorage.setItem('userEmail', enteredEmail)
+      navigate('/')
+    } else {
+      alert('Invalid email or password. Please try again.');
+      localStorage.setItem('LoginStatus', false)
+
+    }
   };
 
   return (
@@ -98,14 +115,13 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
